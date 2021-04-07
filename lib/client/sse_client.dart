@@ -26,11 +26,11 @@ class SseClient extends StreamChannelMixin<String> {
 
   int _lastMessageId = -1;
 
-  EventSource _eventSource;
+  late final EventSource _eventSource;
 
-  String _serverUrl;
+  late final String _serverUrl;
 
-  Timer _errorTimer;
+  Timer? _errorTimer;
 
   /// [serverUrl] is the URL under which the server is listening for
   /// incoming bi-directional SSE connections.
@@ -114,7 +114,7 @@ class SseClient extends StreamChannelMixin<String> {
   }
 
   void _onOutgoingMessage(String message) async {
-    String encodedMessage;
+    String? encodedMessage;
     try {
       encodedMessage = jsonEncode(message);
     } on JsonUnsupportedObjectError catch (e) {
